@@ -93,18 +93,27 @@ if (primeraVez) {
 
     popup.innerHTML = `<span class="close">&times;</span>`;
 
-    const video = document.createElement("video");
-    video.autoplay = true;
-    video.loop = true;
-    video.muted = true;
-    video.playsInline = true;
+const video = document.createElement("video");
+video.autoplay = true;
+video.loop = true;
+video.muted = true;        // empieza muted
+video.playsInline = true;
+video.preload = "auto";
 
-    const source = document.createElement("source");
-    source.src = elegido.src;
-    source.type = "video/mp4";
+video.src = elegido.src;
 
-    video.appendChild(source);
-    popup.appendChild(video);
+video.oncanplay = () => {
+  // 🔊 activar sonido tras interacción del usuario
+  video.muted = false;
+  video.volume = 1.0;
+
+  video.play().catch(err => {
+    console.warn("No se pudo reproducir con sonido:", err);
+  });
+};
+
+popup.appendChild(video);
+
 
     popup.querySelector(".close").onclick = e => {
       e.stopPropagation();
