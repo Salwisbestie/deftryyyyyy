@@ -1,5 +1,13 @@
 /* ===== CONFIG ===== */
 
+btn.onclick = () => {
+
+  if (!categoriaActual || !libreria[categoriaActual]) {
+    console.warn("No hay categoría seleccionada");
+    return;
+  }
+
+
 // Vídeo fondo (reddit o local)
 const redditVideo = "https://preview.redd.it/2m5zz3mex5hg1.gif?width=720&format=mp4";
 
@@ -48,13 +56,15 @@ document.querySelectorAll(".selector-btn").forEach(b => {
 /* ===== POPUPS ===== */
 btn.onclick = () => {
 
+  if (!categoriaActual || !libreria[categoriaActual]) return;
+
   /* PRIMERA VEZ */
   if (primeraVez) {
     bgVideo.src = redditVideo;
-    bgVideo.play();
+    bgVideo.play().catch(()=>{});
 
     bgAudio.src = audioFondo;
-    bgAudio.play();
+    bgAudio.play().catch(()=>{});
 
     bgWrap.style.opacity = "1";
     primeraVez = false;
@@ -63,10 +73,13 @@ btn.onclick = () => {
   const lista = libreria[categoriaActual];
   const elegido = lista[Math.floor(Math.random() * lista.length)];
 
+  // 🔲 POPUP BASE (SIEMPRE VISIBLE)
   const popup = document.createElement("div");
   popup.className = "popup";
   popup.style.zIndex = ++zIndex;
+  popup.innerHTML = `<span class="close">&times;</span>`;
 
+  // 📍 POSICIÓN
   let x, y, r;
   do {
     r = btn.getBoundingClientRect();
@@ -82,12 +95,19 @@ btn.onclick = () => {
   popup.style.left = x + "px";
   popup.style.top = y + "px";
 
-  popup.innerHTML = `
-    <span class="close">&times;</span>
-    <video autoplay loop muted playsinline>
-      <source src="${elegido.src}" type="video/mp4">
-    </video>
-  `;
+  // 🎬 VIDEO
+  const video = document.createElement("video");
+  video.autoplay = true;
+  video.loop = true;
+  video.muted = true;
+  video.playsInline = true;
+
+  const source = document.createElement("source");
+  source.src = elegido.src;
+  source.type = "video/mp4";
+
+  video.appendChild(source);
+  popup.appendChild(video);
 
   popup.querySelector(".close").onclick = e => {
     e.stopPropagation();
