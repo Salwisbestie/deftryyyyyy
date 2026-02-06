@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ===== CONFIG ===== */
 
-  const redditVideo = "https://preview.redd.it/2m5zz3mex5hg1.gif?width=720&format=mp4";
+  const videoFondoLocal = "media/videos/fondo.mp4";
   const audioFondo = "media/audio/fondo.mp3";
 
   const libreria = {
@@ -48,16 +48,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!categoriaActual || !libreria[categoriaActual]) return;
 
-    if (primeraVez) {
-      bgVideo.src = redditVideo;
-      bgVideo.play().catch(()=>{});
+if (primeraVez) {
 
-      bgAudio.src = audioFondo;
-      bgAudio.play().catch(()=>{});
+  bgVideo.src = videoFondoLocal;
+  bgVideo.muted = true;
+  bgVideo.loop = true;
+  bgVideo.playsInline = true;
+  bgVideo.preload = "auto";
 
-      bgWrap.style.opacity = "1";
-      primeraVez = false;
-    }
+  bgVideo.oncanplay = () => {
+    bgVideo.play().catch(()=>{});
+    bgWrap.style.opacity = "1";
+  };
+
+  bgAudio.src = audioFondo;
+  bgAudio.loop = true;
+  bgAudio.play().catch(()=>{});
+
+  primeraVez = false;
+}
+
 
     const lista = libreria[categoriaActual];
     const elegido = lista[Math.floor(Math.random() * lista.length)];

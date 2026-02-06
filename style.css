@@ -75,20 +75,25 @@ body {
 .popup {
   position: absolute;
   width: 340px;
+  height: 260px; /* 🔒 ALTURA FIJA */
   background: rgba(255,255,255,.95);
   border-radius: 22px;
-  padding: 15px;
+  padding: 12px;
   box-shadow: 0 20px 40px rgba(0,0,0,.3);
   cursor: grab;
   pointer-events: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .popup video {
   width: 100%;
-  margin-top: 10px;
+  height: 100%;
   border-radius: 15px;
-  min-height: 220px;
+  object-fit: cover; /* 🔥 CLAVE */
+  flex: 1;
 }
+
 
 .popup .close {
   position: absolute;
