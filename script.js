@@ -9,7 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
     oso: [
       { tipo: "video", src: "media/videos/oso1.mp4" },
       { tipo: "video", src: "media/videos/oso2.mp4" },
-      { tipo: "video", src: "media/videos/oso3.mp4" }
+      { tipo: "video", src: "media/videos/oso3.mp4" },
+ { tipo: "video", src: "media/videos/oso4.mp4" },
+      { tipo: "video", src: "media/videos/oso5.mp4" },
+      { tipo: "video", src: "media/videos/oso6.mp4" },
+ { tipo: "video", src: "media/videos/oso7.mp4" },
+      { tipo: "video", src: "media/videos/oso8.mp4" },
+      { tipo: "video", src: "media/videos/oso9.mp4" },
+
     ]
   };
 
