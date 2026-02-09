@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
       { tipo: "video", src: "media/videos/oso18.mp4"},      
       { tipo: "video", src: "media/videos/oso19.mp4"},
       { tipo: "video", src: "media/videos/oso20.mp4"},      
-      { tipo: "video", src: "media/videos/oso21.mp4"},
+      { tipo: "video", src: "media/videos/oso21.mp4"}
  ] };
 
   /* ===== ESTADO ===== */
@@ -129,6 +129,15 @@ popup.style.height = popupHeight + "px";
     video.setAttribute("webkit-playsinline", "true"); // Extra para versiones viejas de Safari
 
     video.src = elegido.src; 
+video.oncanplay = () => {
+  // 🔊 activar sonido tras interacción del usuario
+  video.muted = false;
+  video.volume = 1.0;
+
+  video.play().catch(err => {
+    console.warn("No se pudo reproducir con sonido:", err);
+  });
+};
     
     popup.appendChild(video);
 
